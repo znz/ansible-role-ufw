@@ -1,0 +1,98 @@
+---
+- name: "install ufw"
+  apt:
+    name: ufw
+
+- name: "Update before.rules"
+  template:
+    src: "before.rules.{{ ansible_distribution }}.{{ ansible_lsb.codename }}.j2"
+    dest: /etc/ufw/before.rules
+    owner: root
+    group: root
+    mode: 0640
+- name: "Update before6.rules"
+  template:
+    src: "before6.rules.{{ ansible_distribution }}.{{ ansible_lsb.codename }}.j2"
+    dest: /etc/ufw/before6.rules
+    owner: root
+    group: root
+    mode: 0640
+
+- name: Allow incoming TCP and UDP
+  ufw:
+    rule: allow
+    port: "{{ item.port }}"
+  with_items: "{{ ufw_allow_in_both }}"
+
+- name: Allow incoming TCP
+  ufw:
+    rule: allow
+    port: "{{ item.port }}"
+    proto: tcp
+  with_items: "{{ ufw_allow_in_tcp }}"
+
+- name: Allow incoming UDP
+  ufw:
+    rule: allow
+    port: "{{ item.port }}"
+    proto: udp
+  with_items: "{{ ufw_allow_in_udp }}"
+
+- name: Limit incoming TCP and UDP
+  ufw:
+    rule: limit
+    port: "{{ item.port }}"
+  with_items: "{{ ufw_limit_in_both }}"
+
+- name: Limit incoming TCP
+  ufw:
+    rule: limit
+    port: "{{ item.port }}"
+    proto: tcp
+  with_items: "{{ ufw_limit_in_tcp }}"
+
+- name: Limit incoming UDP
+  ufw:
+    rule: limit
+    port: "{{ item.port }}"
+    proto: udp
+  with_items: "{{ ufw_limit_in_udp }}"
+
+- name: Allow outgoing TCP and UDP
+  ufw:
+    direction: out
+    rule: allow
+    port: "{{ item.port }}"
+  with_items: "{{ ufw_allow_out_both }}"
+
+- name: Allow outgoing TCP
+  ufw:
+    direction: out
+    rule: allow
+    port: "{{ item.port }}"
+    proto: tcp
+  with_items: "{{ ufw_allow_out_tcp }}"
+
+- name: Allow outgoing UDP
+  ufw:
+    direction: out
+    rule: allow
+    port: "{{ item.port }}"
+    proto: udp
+  with_items: "{{ ufw_allow_out_udp }}"
+
+- name: "default input policy to {{ ufw_default_input_policy }}"
+  ufw:
+    policy: "{{ ufw_default_input_policy }}" # default: deny
+- name: "default output policy to {{ ufw_default_output_policy }}"
+  ufw:
+    direction: outgoing
+    policy: "{{ ufw_default_output_policy }}" # default allow
+- name: "default forward policy to {{ ufw_default_forward_policy }}"
+  ufw:
+    direction: routed
+    policy: "{{ ufw_default_forward_policy }}" # default drop
+
+- name: "Enable ufw"
+  ufw:
+    state: enabled

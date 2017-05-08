@@ -1,0 +1,27 @@
+---
+# defaults file for ansible-role-ufw
+ufw_default_input_policy: deny
+ufw_default_output_policy: reject
+ufw_default_forward_policy: reject
+
+ufw_allow_in_both: []
+ufw_allow_in_tcp: []
+ufw_allow_in_udp: []
+
+ufw_limit_in_both: []
+ufw_limit_in_tcp:
+- name: "SSH"
+  port: 22
+ufw_limit_in_udp: []
+
+ufw_allow_out_both:
+- name: "DNS"
+  port: 53
+- name: "HTTPS, QUIC"
+  port: 443
+ufw_allow_out_tcp:
+- name: "HTTP"
+  port: 80
+ufw_allow_out_udp:
+- name: "NTP"
+  port: 123

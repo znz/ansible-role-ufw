@@ -19,6 +19,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
+  config.vm.define 'stretch64', autostart: false do |vm|
+    vm.vm.box = 'debian/stretch64'
+    if Vagrant.has_plugin?('vagrant-cachier')
+      vm.cache.scope = :box
+    end
+  end
+
   config.vm.define 'trusty64', autostart: false do |vm|
     vm.vm.box = 'bento/ubuntu-14.04'
     if Vagrant.has_plugin?('vagrant-cachier')

@@ -92,6 +92,7 @@
   ufw:
     direction: routed
     policy: "{{ ufw_default_forward_policy }}" # default drop
+  when: ( ansible_lsb.codename != "wheezy" and ansible_lsb.codename != "jessie" )
 
 - name: "Enable ufw"
   ufw:

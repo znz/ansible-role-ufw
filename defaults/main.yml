@@ -10,20 +10,20 @@ ufw_allow_in_udp: []
 
 ufw_limit_in_both: []
 ufw_limit_in_tcp:
-- name: "SSH"
+- comment: "SSH"
   port: 22
 ufw_limit_in_udp: []
 
 ufw_allow_out_both:
-- name: "DNS"
+- comment: "DNS"
   port: 53
-- name: "HTTPS, QUIC"
+- comment: "HTTPS, QUIC"
   port: 443
 ufw_allow_out_tcp:
-- name: "HTTP"
+- comment: "HTTP"
   port: 80
 ufw_allow_out_udp:
-- name: "NTP"
+- comment: "NTP"
   port: 123
 
 ufw_delete_allow_in_both: []

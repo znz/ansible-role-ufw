@@ -66,15 +66,15 @@ Example with rules:
       roles:
          - role: znz.ufw
            ufw_allow_in_tcp:
-           - name: "HTTP"
+           - comment: "HTTP"
              port: 80
-           - name: "HTTPS"
+           - comment: "HTTPS"
              port: 443
            ufw_delete_allow_in_tcp:
-           - name: "Telnet"
+           - comment: "Telnet"
              port: 23
 
-`name` is for memo because ansible ufw module does not support `comment`.
+`comment` is for memo because ansible ufw module does not support `comment` of ufw command.
 Tasks in this role use `port` only.
 
 ## License

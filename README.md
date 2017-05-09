@@ -27,6 +27,17 @@ Setup `ufw` as output default policy is reject.
 - `ufw_allow_out_tcp`: Allow outgoing TCP
 - `ufw_allow_out_udp`: Allow outgoing UDP
 
+### Delete rules
+
+`ufw` explicitly need to delete rules when added rules are unnecessary.
+
+- `ufw_delete_allow_in_both`: Delete allow incoming TCP and UDP
+- `ufw_delete_allow_in_tcp`: Delete allow incoming TCP
+- `ufw_delete_allow_in_udp`: Delete allow incoming UDP
+- `ufw_delete_allow_out_both`: Delete allow outgoing TCP and UDP
+- `ufw_delete_allow_out_tcp`: Delete allow outgoing TCP
+- `ufw_delete_allow_out_udp`: Delete allow outgoing UDP
+
 ## Dependencies
 
 None.
@@ -39,6 +50,32 @@ Example:
       become: yes
       roles:
          - znz.ufw
+
+Example with rejecting forward:
+
+    - hosts: servers
+      become: yes
+      roles:
+         - role: znz.ufw
+           ufw_default_forward_policy: reject
+
+Example with rules:
+
+    - hosts: servers
+      become: yes
+      roles:
+         - role: znz.ufw
+           ufw_allow_in_tcp:
+           - name: "HTTP"
+             port: 80
+           - name: "HTTPS"
+             port: 443
+           ufw_delete_allow_in_tcp:
+           - name: "Telnet"
+             port: 23
+
+`name` is for memo because ansible ufw module does not support `comment`.
+Tasks in this role use `port` only.
 
 ## License
 

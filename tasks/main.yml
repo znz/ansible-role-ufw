@@ -81,6 +81,50 @@
     proto: udp
   with_items: "{{ ufw_allow_out_udp }}"
 
+- name: Delete allow incoming TCP and UDP
+  ufw:
+    delete: yes
+    rule: allow
+    port: "{{ item.port }}"
+  with_items: "{{ ufw_delete_allow_in_both }}"
+
+- name: Delete allow incoming TCP
+  ufw:
+    delete: yes
+    rule: allow
+    port: "{{ item.port }}"
+    proto: tcp
+  with_items: "{{ ufw_delete_allow_in_tcp }}"
+
+- name: Delete allow incoming UDP
+  ufw:
+    rule: allow
+    port: "{{ item.port }}"
+    proto: udp
+  with_items: "{{ ufw_delete_allow_in_udp }}"
+
+- name: Delete allow outgoing TCP and UDP
+  ufw:
+    direction: out
+    rule: allow
+    port: "{{ item.port }}"
+  with_items: "{{ ufw_delete_allow_out_both }}"
+
+- name: Delete allow outgoing TCP
+  ufw:
+    direction: out
+    rule: allow
+    port: "{{ item.port }}"
+    proto: tcp
+  with_items: "{{ ufw_delete_allow_out_tcp }}"
+
+- name: Delete allow outgoing UDP
+  ufw:
+    direction: out
+    rule: allow
+    port: "{{ item.port }}"
+    proto: udp
+  with_items: "{{ ufw_delete_allow_out_udp }}"
 - name: "default input policy to {{ ufw_default_input_policy }}"
   ufw:
     policy: "{{ ufw_default_input_policy }}" # default: deny

@@ -3,3 +3,14 @@
   become: yes
   roles:
   - role: znz.ufw
+    ufw_default_forward_policy: reject
+    ufw_allow_in_tcp:
+    - name: "HTTP"
+      port: 80
+    - name: "HTTPS"
+      port: 443
+    ufw_delete_allow_in_tcp:
+    - name: "HTTPS"
+      port: 443
+    - name: "Telnet"
+      port: 23

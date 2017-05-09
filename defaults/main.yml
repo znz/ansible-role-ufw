@@ -2,7 +2,7 @@
 # defaults file for ansible-role-ufw
 ufw_default_input_policy: deny
 ufw_default_output_policy: reject
-ufw_default_forward_policy: reject
+ufw_default_forward_policy: deny
 
 ufw_allow_in_both: []
 ufw_allow_in_tcp: []

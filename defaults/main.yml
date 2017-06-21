@@ -32,3 +32,6 @@ ufw_delete_allow_in_udp: []
 ufw_delete_allow_out_both: []
 ufw_delete_allow_out_tcp: []
 ufw_delete_allow_out_udp: []
+
+# allow to add NAT table rules
+ufw_before_rule: ""

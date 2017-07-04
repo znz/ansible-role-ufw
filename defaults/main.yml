@@ -35,3 +35,4 @@ ufw_delete_allow_out_udp: []
 
 # allow to add NAT table rules
 ufw_before_rule: ""
+ufw_before6_rule: ""

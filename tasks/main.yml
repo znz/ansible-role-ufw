@@ -127,6 +127,7 @@
   with_items: "{{ ufw_delete_allow_out_udp }}"
 - name: "default input policy to {{ ufw_default_input_policy }}"
   ufw:
+    direction: incoming
     policy: "{{ ufw_default_input_policy }}" # default: deny
 - name: "default output policy to {{ ufw_default_output_policy }}"
   ufw:

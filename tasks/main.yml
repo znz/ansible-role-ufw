@@ -22,6 +22,7 @@
   ufw:
     rule: allow
     port: "{{ item.port }}"
+    comment: "{{ item.comment | default('') }}"
   with_items: "{{ ufw_allow_in_both }}"
 
 - name: Allow incoming TCP
@@ -29,6 +30,7 @@
     rule: allow
     port: "{{ item.port }}"
     proto: tcp
+    comment: "{{ item.comment | default('') }}"
   with_items: "{{ ufw_allow_in_tcp }}"
 
 - name: Allow incoming UDP
@@ -36,12 +38,14 @@
     rule: allow
     port: "{{ item.port }}"
     proto: udp
+    comment: "{{ item.comment | default('') }}"
   with_items: "{{ ufw_allow_in_udp }}"
 
 - name: Limit incoming TCP and UDP
   ufw:
     rule: limit
     port: "{{ item.port }}"
+    comment: "{{ item.comment | default('') }}"
   with_items: "{{ ufw_limit_in_both }}"
 
 - name: Limit incoming TCP
@@ -49,6 +53,7 @@
     rule: limit
     port: "{{ item.port }}"
     proto: tcp
+    comment: "{{ item.comment | default('') }}"
   with_items: "{{ ufw_limit_in_tcp }}"
 
 - name: Limit incoming UDP
@@ -56,6 +61,7 @@
     rule: limit
     port: "{{ item.port }}"
     proto: udp
+    comment: "{{ item.comment | default('') }}"
   with_items: "{{ ufw_limit_in_udp }}"
 
 - name: Allow outgoing TCP and UDP
@@ -63,6 +69,7 @@
     direction: out
     rule: allow
     port: "{{ item.port }}"
+    comment: "{{ item.comment | default('') }}"
   with_items: "{{ ufw_allow_out_both }}"
 
 - name: Allow outgoing TCP
@@ -71,6 +78,7 @@
     rule: allow
     port: "{{ item.port }}"
     proto: tcp
+    comment: "{{ item.comment | default('') }}"
   with_items: "{{ ufw_allow_out_tcp }}"
 
 - name: Allow outgoing UDP
@@ -79,6 +87,7 @@
     rule: allow
     port: "{{ item.port }}"
     proto: udp
+    comment: "{{ item.comment | default('') }}"
   with_items: "{{ ufw_allow_out_udp }}"
 
 - name: Delete allow incoming TCP and UDP
